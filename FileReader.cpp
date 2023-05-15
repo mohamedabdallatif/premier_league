@@ -12,9 +12,8 @@ struct MatchData {
     int awayGoals;
     char result;
 };
-
-int main() {
-    // read match data from CSV file
+void FileReaderx(){
+    vector<MatchData> matchs;
     ifstream file("matches.csv");
     string line;
     getline(file, line);
@@ -28,7 +27,6 @@ int main() {
         if(fields[4] == "-")    continue;
         cout << stoi(fields[0]) <<"\t\t\t" << fields[1] << "\t\t\t" << fields[2] <<"\t\t\t"<< fields[3] << "\t\t\t" << stoi(fields[4]) <<"\t\t\t"<< stoi(fields[5]) <<  "\t\t\t" << fields[6][0] << '\n';
         MatchData match;
-
         match.roundNumber = stoi(fields[0]);
         match.date = fields[1];
         match.homeTeam = fields[2];
@@ -36,7 +34,7 @@ int main() {
         match.homeGoals = stoi(fields[4]);
         match.awayGoals = stoi(fields[5]);
         match.result = fields[6][0];
-        // Extract match date (if needed)
+        matchs.push_back(match);
     }
-
+    // return matchs;
 }
