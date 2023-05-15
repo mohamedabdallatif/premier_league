@@ -1,8 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <algorithm>
-#include "FileReader.h"
+#include <bits/stdc++.h>
+#include "../Headers/FileReader.h"
 
 using namespace std;
 
@@ -20,14 +17,16 @@ struct TeamStats {
     int points;
     int goal_difference;    // -----------> Goals Scored - Goals Encoded.
 };
-
+void Printer(vector<MatchData> matches){
+    for(auto i : matches){
+        cout << i.roundNumber << '\t' << i.date << '\t' << i.homeTeam << '\t' << i.awayTeam << '\t' << i.homeGoals << '\t' << i.homeGoals << '\t' << i.result << '\n'; 
+    }
+}
 int main() {
     vector<MatchData> matches;
     // matches = FileReaderx();
-    FileReaderx();
-    for (int i = 0; i < 5; i++){
-        cout << matches[i].date << ' ';
-    }
+    matches = FileReaderx();
+    Printer(matches);
     // Initialize standings
     map<string, TeamStats> standings;
     

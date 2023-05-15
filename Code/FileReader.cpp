@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
+#include "../Headers/FileReader.h"
+
 using namespace std;
-#define ll long long
-#define TIME ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-const ll oo = 1e18, N = 1e9 + 1;
+
 struct MatchData {
     int roundNumber;
     string date;
@@ -12,7 +12,7 @@ struct MatchData {
     int awayGoals;
     char result;
 };
-void FileReaderx(){
+vector<MatchData> FileReaderx(){
     vector<MatchData> matchs;
     ifstream file("matches.csv");
     string line;
@@ -25,7 +25,6 @@ void FileReaderx(){
             fields.push_back(field);
         }
         if(fields[4] == "-")    continue;
-        cout << stoi(fields[0]) <<"\t\t\t" << fields[1] << "\t\t\t" << fields[2] <<"\t\t\t"<< fields[3] << "\t\t\t" << stoi(fields[4]) <<"\t\t\t"<< stoi(fields[5]) <<  "\t\t\t" << fields[6][0] << '\n';
         MatchData match;
         match.roundNumber = stoi(fields[0]);
         match.date = fields[1];
@@ -36,5 +35,5 @@ void FileReaderx(){
         match.result = fields[6][0];
         matchs.push_back(match);
     }
-    // return matchs;
+    return matchs;
 }
