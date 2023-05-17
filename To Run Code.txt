@@ -3,4 +3,13 @@ Linking Files:
 			g++ -c main.cpp -o main.o
 			g++ FileReader.o main.o -o output
 Run File:
-			Partition:\Path\output.exe
+			(Partition):\(Path)\output.exe
+
+
+
+
+
+g++ -c FileReader.cpp -o FileReader.o
+g++ -c main.cpp -o main.o
+g++ FileReader.o main.o -o output
+output.exe
