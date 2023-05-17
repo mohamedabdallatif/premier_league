@@ -75,14 +75,14 @@ int main() {
     matches = FileReaderx();
     MakeNodes();
     MakeGraph();
-    // printGraph();
-    while (cin >> RoundNumber){
-        if(RoundNumber < 1 || RoundNumber > 38)     return;
+     printGraph();
+    /* while (cin >> RoundNumber){
+        if(RoundNumber < 1 || RoundNumber > 38)     return 0;
         for (int i = 1; i <= 38; i++){
             if(!Visited[i])     DFS(i);
         }
         
-    }
+    } */
         
     return 0;
 }
