@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <iomanip> // for setw()
+
 #include "../Headers/FileReader.h"
 const int N = 50;
 using namespace std;
@@ -9,7 +11,6 @@ int Visited[N];
 int RoundNumber, Date;
 struct TeamStats{
     int points;
-    int goal_difference;
     int goalsScored;
     int goalsEncoded;
     int teamNode;
@@ -38,11 +39,17 @@ struct MatchDataForGraph{
 };
 vector<MatchDataForGraph> Graph[N];
 void init(){
+    Date = 0;
+    RoundNumber = 0;
     Standing.clear();   
     memset(Visited, 0, sizeof Visited);
 }
 int Converter(string date){
-
+    // Make it, Mamdouh
+    return 0;
+}
+void Sorting(){
+    // Make it, Michael
 }
 void MakeGraph(){
     for(MatchData i : matches){
@@ -75,14 +82,31 @@ void Stand(int winner, int loser, MatchDataForGraph Edge, char Result){
         Standing[loser].goalsEncoded += Edge.awayGoals;
     }
 }
-void printGraph(){
-    for (int i = 0; i <= 20; i++){
+void PrintStanding(){
+    cout << "Premier League Standings Untill\n";
+    if(Date)    cout << Date;
+    else    cout << "Round " << RoundNumber << '\n';
+    cout << "-----------------------\n";
+    cout << "Team                      |  P  |  W  |  D  |  L  | GF  | GA  | GD  | Pts\n";
+    cout << "--------------------------|-----|-----|-----|-----|-----|-----|-----|-----\n";
+    for(TeamStats team :Standing){
+      cout << left << setw(26) << Nodes[team.teamNode] << "|";
+      cout << right << setw(5) << team.MatchPlayed << "|";
+      cout << right << setw(5) << team.W << "|";
+      cout << right << setw(5) << team.D << "|";
+      cout << right << setw(5) << team.L << "|";
+      cout << right << setw(5) << team.goalsScored << "|";
+      cout << right << setw(5) << team.goalsEncoded << "|";
+      cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
+      cout << right << setw(5) << team.points << "\n";
+    }
+    /* for (int i = 0; i <= 20; i++){
         cout << Nodes[i] << '\t';
         for(MatchDataForGraph x : Graph[i]){
             cout << Nodes[x.Awayteam] << ' ' << x.roundNumber << ' ' << x.homeGoals << ' ' << x.awayGoals << ' ' << x.result << '\n';
         }
         cout << "\n\n\n";
-    }
+    } */
     
 }
 void BFS(int x, int condition){
@@ -93,7 +117,7 @@ void BFS(int x, int condition){
             int P = q.front();
             q.pop();
             for(MatchDataForGraph i : Graph[P]){
-                if(i.roundNumber < RoundNumber){
+                if(i.roundNumber <= RoundNumber){
                     if (i.result == 'H')    Stand(P, i.Awayteam, i, 'H');
                     else if (i.result == 'A')   Stand(i.Awayteam, P, i, 'A');
                     else    Stand(P, i.Awayteam, i, 'D');
@@ -109,7 +133,7 @@ void BFS(int x, int condition){
             int P = q.front();
             q.pop();
             for(MatchDataForGraph i : Graph[P]){
-                if(i.date < Date){
+                if(i.date <= Date){
                     if (i.result == 'H')    Stand(P, i.Awayteam, i, 'H');
                     else if (i.result == 'A')   Stand(i.Awayteam, P, i, 'A');
                     else    Stand(P, i.Awayteam, i, 'D');
@@ -155,8 +179,7 @@ int main() {
     matches = FileReaderx();
     MakeNodes();
     MakeGraph();
-    // printGraph();
-    int Condition, What;
+    int Condition;
     cout << "Round(1) or Date(2)? ";
     while (cin >> Condition){
         init();
@@ -166,10 +189,11 @@ int main() {
         for (int i = 1; i <= 38; i++){
             if(!Visited[i])     BFS(i, Condition);
         }   
-        // Sorting
-        // Print Standing
+        Sorting();
+        PrintStanding();
         cout << "Round(1) or Date(2)? ";
     }
+        
     return 0;
 }
 
