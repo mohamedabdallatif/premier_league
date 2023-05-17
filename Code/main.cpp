@@ -5,6 +5,7 @@ using namespace std;
 vector<MatchData> matches;
 map<int, string> Nodes;
 map<string, int> NodesName;
+int RoundNumber, Visited[N];
 struct TeamStats {
     int points;
     int goal_difference;    // -----------> Goals Scored - Goals Encoded.
@@ -40,6 +41,10 @@ void printGraph(){
     }
     
 }
+void DFS(int x){
+    
+}
+
 
 void MakeNodes(){
     int CurrentRound(1), CurrentNode(1);
@@ -70,8 +75,14 @@ int main() {
     matches = FileReaderx();
     MakeNodes();
     MakeGraph();
-    printGraph();
-    // Initialize standings
-    
+    // printGraph();
+    while (cin >> RoundNumber){
+        if(RoundNumber < 1 || RoundNumber > 38)     return;
+        for (int i = 1; i <= 38; i++){
+            if(!Visited[i])     DFS(i);
+        }
+        
+    }
+        
     return 0;
 }
