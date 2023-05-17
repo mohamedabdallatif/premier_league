@@ -6,12 +6,13 @@ vector<MatchData> matches;
 map<int, string> Nodes;
 map<string, int> NodesName;
 int RoundNumber, Visited[N];
-struct TeamStats {
+struct TeamStats{
     int points;
     int goal_difference;    // -----------> Goals Scored - Goals Encoded.
     int goalsScored, goalsEncoded;
+    int teamNode;
 };
-map<string, TeamStats> standings;
+vector<TeamStats> Standing(N);
 struct MatchData {
     int roundNumber;
     string date;
@@ -38,10 +39,25 @@ void printGraph(){
         for(MatchDataForGraph x : Graph[i]){
             cout << Nodes[x.team] << ' ' << x.roundNumber << ' ' << x.homeGoals << ' ' << x.awayGoals << ' ' << x.result << '\n';
         }
+        cout << "\n\n\n";
     }
     
 }
 void DFS(int x){
+    if(Visited[x] == 2)     return;
+    Visited[x] = 1;
+    for(auto i : Graph[x]){
+        if(i.roundNumber <= RoundNumber){
+            if (i.result == 'H')    Standing[x].points += 3;
+            else if (i.result == 'A')   Standing[i.team].points += 3;
+            else{
+            Standing[x].points += 1;
+            Standing[x].points += 1;
+            if(Visited[i.team] == 0)     DFS(i.team);
+        }
+
+        }
+    }
     
 }
 
@@ -75,14 +91,13 @@ int main() {
     matches = FileReaderx();
     MakeNodes();
     MakeGraph();
-    // printGraph();
-    while (cin >> RoundNumber){
-        if(RoundNumber < 1 || RoundNumber > 38)     return;
-        for (int i = 1; i <= 38; i++){
-            if(!Visited[i])     DFS(i);
-        }
-        
-    }
+    printGraph();
+    // while (cin >> RoundNumber){
+    //     if(RoundNumber < 1 || RoundNumber > 38)     return 0;
+    //     for (int i = 1; i <= 38; i++){
+    //         if(!Visited[i])     DFS(i);
+    //     }   
+    // }
         
     return 0;
 }
