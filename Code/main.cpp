@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <iomanip> // for setw()
+
 #include "../Headers/FileReader.h"
 const int N = 50;
 using namespace std;
@@ -34,13 +36,29 @@ void MakeGraph(){
     }
 }
 void printGraph(){
-    for (int i = 0; i <= 20; i++){
+     // Print table header
+    cout << "Premier League Standings\n";
+    cout << "-----------------------\n";
+    cout << "Team                      |  P  |  W  |  D  |  L  | GF  | GA  | GD  | Pts\n";
+    cout << "--------------------------|-----|-----|-----|-----|-----|-----|-----|-----\n";
+    for(const auto & team :matches){
+      cout << left << setw(26) << team.homeTeam << "|";
+      cout << right << setw(5) << team.homeGoals << "|";
+      cout << right << setw(5) << team.homeGoals << "|";
+      cout << right << setw(5) << team.homeGoals << "|";
+      cout << right << setw(5) << team.homeGoals << "|";
+      cout << right << setw(5) << team.homeGoals << "|";
+      cout << right << setw(5) << team.awayGoals << "|";
+      cout << right << setw(5) << team.homeGoals - team.awayGoals << "|";
+      cout << right << setw(5) << team.result << "\n";
+    }
+    /* for (int i = 0; i <= 20; i++){
         cout << Nodes[i] << '\t';
         for(MatchDataForGraph x : Graph[i]){
             cout << Nodes[x.team] << ' ' << x.roundNumber << ' ' << x.homeGoals << ' ' << x.awayGoals << ' ' << x.result << '\n';
         }
         cout << "\n\n\n";
-    }
+    } */
     
 }
 void DFS(int x){
@@ -99,7 +117,6 @@ int main() {
         }
         
     } */
-    printGraph();
     // while (cin >> RoundNumber){
     //     if(RoundNumber < 1 || RoundNumber > 38)     return 0;
     //     for (int i = 1; i <= 38; i++){
