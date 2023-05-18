@@ -6,7 +6,7 @@ using namespace std;
 vector<MatchData> FileReaderx()
 {
     vector<MatchData> matchs;
-    ifstream file("matches.csv");
+    ifstream file("epl_results.csv");
     string line;
     getline(file, line);
     while (getline(file, line))

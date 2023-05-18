@@ -12,6 +12,7 @@ struct MatchData
     int awayGoals;
     char result;
 };
+
 struct TeamStats
 {
     int points;
@@ -23,6 +24,7 @@ struct TeamStats
     int D;
     int L;
 };
+
 struct MatchDataForGraph
 {
     int Awayteam;
@@ -32,6 +34,7 @@ struct MatchDataForGraph
     int awayGoals;
     char result;
 };
+
 vector<MatchData> FileReaderx();
 
 #endif
