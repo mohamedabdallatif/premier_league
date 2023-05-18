@@ -103,14 +103,14 @@ void PrintStanding()
         cout << MeaningDate;
     else
         cout << "Round " << RoundNumber << '\n';
-    cout << "-----------------------\n";
-    cout << "Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts\n";
-    cout << "--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----\n";
+    cout << "|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
+    cout << "|Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
+    cout << "|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
     for (TeamStats team : Standing)
     {
         if (Nodes[team.teamNode].empty())
             continue;
-        cout << left << setw(26) << Nodes[team.teamNode] << "|";
+        cout << '|' << left << setw(26) << Nodes[team.teamNode] << "|";
         cout << right << setw(11) << team.MatchPlayed << "|";
         cout << right << setw(5) << team.W << "|";
         cout << right << setw(5) << team.D << "|";
@@ -118,9 +118,9 @@ void PrintStanding()
         cout << right << setw(5) << team.goalsScored << "|";
         cout << right << setw(5) << team.goalsEncoded << "|";
         cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
-        cout << right << setw(5) << team.points << "\n";
+        cout << right << setw(5) << team.points << "|\n";
+        cout << "|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
     }
-    cout << "--------------------------------------------------------------------------------\n";
 }
 void BFS(int x, int condition)
 {
@@ -233,7 +233,7 @@ int main()
         }
         Sorting();
         PrintStanding();
-        cout << "Round(1) or Date(2)? ";
+        cout << "Running.....\nRound(1) or Date(2)? ";
     }
     return 0;
 }
