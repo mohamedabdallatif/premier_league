@@ -3,6 +3,7 @@
 
 #include "../Headers/FileReader.h"
 const int N = 50;
+#define ll long long
 using namespace std;
 vector<MatchData> matches;
 map<int, string> Nodes;
@@ -58,8 +59,7 @@ void init()
     }
     memset(Visited, 0, sizeof(Visited));
 }
-bool sortBy(TeamStats &a, TeamStats &b)
-{
+bool sortBy(TeamStats &a, TeamStats &b){
     int diffGoalsA = (a.goalsScored - a.goalsEncoded), diffGoalsB = (b.goalsScored - b.goalsEncoded);
     if (a.points != b.points)
         return (a.points > b.points);
@@ -69,13 +69,21 @@ bool sortBy(TeamStats &a, TeamStats &b)
         return (a.goalsScored > b.goalsScored);
     else if (a.goalsEncoded != b.goalsEncoded)
         return (a.goalsEncoded < b.goalsEncoded);
-    else
-        return (a.teamNode < b.teamNode);
+    return (Nodes[a.teamNode] < Nodes[b.teamNode]);
 }
-int Converter(string date)
-{
-    // Make it, Mamdouh
-    return 0;
+int Converter(string date){
+    stringstream ss(date);
+    string SubStr;
+    getline(ss, SubStr, '/'); 
+    ll day = stoi(SubStr);
+    getline(ss, SubStr, '/'); 
+    ll month = stoi(SubStr);
+    getline(ss, SubStr, '/'); 
+    ll year = stoi(SubStr);
+    ll dateIntFormat = (year * 10000) + (month * 100) + day;
+    cout << day << ' ' << month << ' ' << year << '\n';
+    // cout << "Integer representation of the date: " << dateInt << endl;
+    return dateIntFormat;
 }
 void Sorting()
 {   // Make it, Michael
@@ -261,7 +269,8 @@ int main()
         else if (Condition == 2)
         {
             cout << "Date# ";
-            cin >> Date;
+            string date;    cin >> date;
+            Date = Converter(date);
         }
         else
             return 0;
