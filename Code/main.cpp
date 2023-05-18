@@ -41,8 +41,17 @@ vector<MatchDataForGraph> Graph[N];
 void init(){
     Date = 0;
     RoundNumber = 0;
-    Standing.clear();   
-    memset(Visited, 0, sizeof Visited);
+    for (int i = 0; i < N; i++){
+        Standing[i].D = 0;
+        Standing[i].goalsEncoded = 0;
+        Standing[i].goalsScored = 0;
+        Standing[i].L = 0;
+        Standing[i].MatchPlayed = 0;
+        Standing[i].points = 0;
+        Standing[i].teamNode = i;
+        Standing[i].W = 0;
+    }
+    memset(Visited, 0, sizeof(Visited));
 }
 int Converter(string date){
     // Make it, Mamdouh
@@ -81,24 +90,29 @@ void Stand(int winner, int loser, MatchDataForGraph Edge, char Result){
         Standing[winner].goalsEncoded += Edge.homeGoals;
         Standing[loser].goalsEncoded += Edge.awayGoals;
     }
+    // for (int i = 1; i < N; i++){
+    //     cout << Standing[i].teamNode << ' ';
+    // }
+    // cout << endl;
 }
 void PrintStanding(){
-    cout << "Premier League Standings Untill\n";
+    cout << "Premier League Standings Untill ";
     if(Date)    cout << Date;
     else    cout << "Round " << RoundNumber << '\n';
     cout << "-----------------------\n";
-    cout << "Team                      |  P  |  W  |  D  |  L  | GF  | GA  | GD  | Pts\n";
-    cout << "--------------------------|-----|-----|-----|-----|-----|-----|-----|-----\n";
+    cout << "Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts\n";
+    cout << "--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----\n";
     for(TeamStats team :Standing){
-      cout << left << setw(26) << Nodes[team.teamNode] << "|";
-      cout << right << setw(5) << team.MatchPlayed << "|";
-      cout << right << setw(5) << team.W << "|";
-      cout << right << setw(5) << team.D << "|";
-      cout << right << setw(5) << team.L << "|";
-      cout << right << setw(5) << team.goalsScored << "|";
-      cout << right << setw(5) << team.goalsEncoded << "|";
-      cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
-      cout << right << setw(5) << team.points << "\n";
+        if(Nodes[team.teamNode].empty())    continue;
+        cout << left << setw(26) << Nodes[team.teamNode] << "|";
+        cout << right << setw(11) << team.MatchPlayed << "|";
+        cout << right << setw(5) << team.W << "|";
+        cout << right << setw(5) << team.D << "|";
+        cout << right << setw(5) << team.L << "|";
+        cout << right << setw(5) << team.goalsScored << "|";
+        cout << right << setw(5) << team.goalsEncoded << "|";
+        cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
+        cout << right << setw(5) << team.points << "\n";
     }
     /* for (int i = 0; i <= 20; i++){
         cout << Nodes[i] << '\t';
@@ -110,9 +124,10 @@ void PrintStanding(){
     
 }
 void BFS(int x, int condition){
+    queue<int> q;
+    Visited[x] = 1;
+    q.push(x);
     if(condition == 1){   
-        queue<int> q;
-        Visited[x] = 1;
         while (q.size()){
             int P = q.front();
             q.pop();
@@ -122,13 +137,14 @@ void BFS(int x, int condition){
                     else if (i.result == 'A')   Stand(i.Awayteam, P, i, 'A');
                     else    Stand(P, i.Awayteam, i, 'D');
                 }
-                if(!Visited[i.Awayteam])    q.push(i.Awayteam); 
+                if(!Visited[i.Awayteam]){
+                    Visited[i.Awayteam] = 1;
+                    q.push(i.Awayteam);
+                } 
             }
         }
     }
     else{   
-        queue<int> q;
-        Visited[x] = 1;
         while (q.size()){
             int P = q.front();
             q.pop();
@@ -138,15 +154,17 @@ void BFS(int x, int condition){
                     else if (i.result == 'A')   Stand(i.Awayteam, P, i, 'A');
                     else    Stand(P, i.Awayteam, i, 'D');
                 }
-                if(!Visited[i.Awayteam])    q.push(i.Awayteam); 
+                if(!Visited[i.Awayteam]){
+                    Visited[i.Awayteam] = 1;
+                    q.push(i.Awayteam);
+                } 
             }
         }
     }
-    
 }
 
 
-void MakeNodes(){
+void UpdateRounds(){
     int CurrentRound(1), CurrentNode(1);
     for(MatchData i : matches){
         // cout << CurrentRound << ' ' << i.roundNumber << '\t';
@@ -163,10 +181,6 @@ void MakeNodes(){
             CurrentNode++;
         }   
     }
-    for (int i = 1; i < N; i++){
-        Standing[i].teamNode = i;
-    }
-    
     // for(MatchData i : matches){
     //     cout << i.roundNumber << '\t' << i.date << '\t' << i.homeTeam << '\t' << i.awayTeam << '\t' << i.homeGoals << '\t' << i.homeGoals << '\t' << i.result << '\n'; 
     // }
@@ -175,21 +189,26 @@ void MakeNodes(){
     // }
 }
 int main() {
-    // matches = FileReaderx();
     matches = FileReaderx();
-    MakeNodes();
+    UpdateRounds();
     MakeGraph();
     int Condition;
     cout << "Round(1) or Date(2)? ";
     while (cin >> Condition){
         init();
-        if(Condition == 1)  cin >> RoundNumber;
-        else if(Condition == 2)  cin >> Date;
+        if(Condition == 1){
+            cout << "Round# ";
+            cin >> RoundNumber;
+        }
+        else if(Condition == 2){
+            cout << "Date# ";
+            cin >> Date;
+        }
         else    return 0;
         for (int i = 1; i <= 38; i++){
             if(!Visited[i])     BFS(i, Condition);
         }   
-        Sorting();
+        // Sorting();
         PrintStanding();
         cout << "Round(1) or Date(2)? ";
     }

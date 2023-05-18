@@ -1,11 +1,23 @@
+W,Date,HomeTeam,AwayTeam,HomeGoals,AwayGoals,Result
 1,5/8/2022,Crystal Palace,Arsenal,0,2,A
 1,6/8/2022,Fulham,Liverpool,2,2,D
-1,6/8/2022,Liverpool,ti,2,2,D
-3,28/08/2022,Nottingham,Tottenham,0,2,A
-3,30/08/2022,Crystal Palace,Brentford,1,1,D
-4,22/08/2022,Man United,Liverpool,2,1,H
+1,6/8/2022,Bournemouth,Aston Villa,2,0,H
+1,6/8/2022,Leeds,Wolves,2,1,H
+1,7/8/2022,West Ham,Man City,0,2,A
+2,13/08/2022,Brentford,Man United,4,0,H
+2,14/08/2022,Nottingham,West Ham,1,0,H
+2,14/08/2022,Chelsea,Tottenham,2,2,D
+2,15/08/2022,Liverpool,Crystal Palace,1,1,D
+3,21/08/2022,West Ham,Brighton,0,2,A
+3,21/08/2022,Newcastle,Man City,3,3,D
+3,22/08/2022,Man United,Liverpool,2,1,H
 4,27/08/2022,Southampton,Man United,0,1,A
-3,27/08/2022,Brentford,Everton,1,1,D
-5,15/08/2022,Liverpool,Crystal Palace,1,1,D
-1,6/8/2022,Liverpool,rt,2,2,D
-1,6/8/2022,Liverpool,Xray,3,5,D
+4,27/08/2022,Brentford,Everton,1,1,D
+5,31/08/2022,West Ham,Tottenham,1,1,D
+5,31/08/2022,Liverpool,Newcastle,2,1,H
+5,1/9/2022,Leicester,Man United,0,1,A
+6,4/9/2022,Brighton,Leicester,5,2,H
+6,4/9/2022,Man United,Arsenal,3,1,H
+8,16/09/2022,Aston Villa,Southampton,1,0,H
+8,16/09/2022,Nottingham,Fulham,2,3,A
+8,17/09/2022,Wolves,Man City,0,3,A
