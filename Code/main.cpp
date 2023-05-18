@@ -81,13 +81,10 @@ int Converter(string date){
     getline(ss, SubStr, '/'); 
     ll year = stoi(SubStr);
     ll dateIntFormat = (year * 10000) + (month * 100) + day;
-    cout << day << ' ' << month << ' ' << year << '\n';
-    // cout << "Integer representation of the date: " << dateInt << endl;
+    // cout << day << ' ' << month << ' ' << year << '\n';
     return dateIntFormat;
 }
-void Sorting()
-{   // Make it, Michael
-    // Done Mr Shouman
+void Sorting(){   
     sort(Standing.begin(), Standing.end(), sortBy);
 }
 void MakeGraph()
