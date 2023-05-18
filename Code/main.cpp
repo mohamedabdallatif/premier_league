@@ -11,37 +11,7 @@ map<int, string> Nodes;
 map<string, int> NodesName;
 int Visited[N];
 int RoundNumber, Date;
-struct TeamStats
-{
-    int points;
-    int goalsScored;
-    int goalsEncoded;
-    int teamNode;
-    int MatchPlayed;
-    int W;
-    int D;
-    int L;
-};
 vector<TeamStats> Standing(N);
-struct MatchData
-{
-    int roundNumber;
-    string date;
-    string homeTeam;
-    string awayTeam;
-    int homeGoals;
-    int awayGoals;
-    char result;
-};
-struct MatchDataForGraph
-{
-    int Awayteam;
-    int date;
-    int roundNumber;
-    int homeGoals;
-    int awayGoals;
-    char result;
-};
 vector<MatchDataForGraph> Graph[N];
 void init()
 {
@@ -82,7 +52,6 @@ int Converter(string date){
     getline(ss, SubStr, '/'); 
     ll year = stoi(SubStr);
     ll dateIntFormat = (year * 10000) + (month * 100) + day;
-    // cout << day << ' ' << month << ' ' << year << '\n';
     return dateIntFormat;
 }
 void Sorting(){   
@@ -126,10 +95,6 @@ void Stand(int winner, int loser, MatchDataForGraph Edge, char Result)
         Standing[winner].goalsEncoded += Edge.homeGoals;
         Standing[loser].goalsEncoded += Edge.awayGoals;
     }
-    // for (int i = 1; i < N; i++){
-    //     cout << Standing[i].teamNode << ' ';
-    // }
-    // cout << endl;
 }
 void PrintStanding()
 {
@@ -155,13 +120,7 @@ void PrintStanding()
         cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
         cout << right << setw(5) << team.points << "\n";
     }
-    /* for (int i = 0; i <= 20; i++){
-        cout << Nodes[i] << '\t';
-        for(MatchDataForGraph x : Graph[i]){
-            cout << Nodes[x.Awayteam] << ' ' << x.roundNumber << ' ' << x.homeGoals << ' ' << x.awayGoals << ' ' << x.result << '\n';
-        }
-        cout << "\n\n\n";
-    } */
+    cout << "--------------------------------------------------------------------------------\n";
 }
 void BFS(int x, int condition)
 {
@@ -223,11 +182,11 @@ void BFS(int x, int condition)
 void UpdateRounds()
 {
     int CurrentRound(1), CurrentNode(1);
-    for (MatchData i : matches)
+    for (MatchData& i : matches)
     {
-        // cout << CurrentRound << ' ' << i.roundNumber << '\t';
-        if (i.roundNumber < CurrentRound)
+        if (i.roundNumber < CurrentRound){
             i.roundNumber = CurrentRound;
+        }
         else if (i.roundNumber > CurrentRound)
             CurrentRound = i.roundNumber;
         if (NodesName[i.homeTeam] == 0)
@@ -243,12 +202,6 @@ void UpdateRounds()
             CurrentNode++;
         }
     }
-    // for(MatchData i : matches){
-    //     cout << i.roundNumber << '\t' << i.date << '\t' << i.homeTeam << '\t' << i.awayTeam << '\t' << i.homeGoals << '\t' << i.homeGoals << '\t' << i.result << '\n';
-    // }
-    // for(auto i : Nodes){
-    //     cout << i.first << ' ' << i.second << '\n';
-    // }
 }
 int main()
 {

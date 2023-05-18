@@ -3,16 +3,6 @@
 
 using namespace std;
 
-struct MatchData
-{
-    int roundNumber;
-    string date;
-    string homeTeam;
-    string awayTeam;
-    int homeGoals;
-    int awayGoals;
-    char result;
-};
 vector<MatchData> FileReaderx()
 {
     vector<MatchData> matchs;
