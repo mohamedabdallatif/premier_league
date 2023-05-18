@@ -5,6 +5,7 @@
 const int N = 50;
 #define ll long long
 using namespace std;
+string MeaningDate;    
 vector<MatchData> matches;
 map<int, string> Nodes;
 map<string, int> NodesName;
@@ -106,6 +107,7 @@ void Stand(int winner, int loser, MatchDataForGraph Edge, char Result)
     {
         Standing[winner].points += 1;
         Standing[loser].points += 1;
+        Standing[winner].D++;
         Standing[loser].D++;
     }
     Standing[winner].MatchPlayed++;
@@ -119,7 +121,7 @@ void Stand(int winner, int loser, MatchDataForGraph Edge, char Result)
     }
     else
     {
-        Standing[winner].goalsScored += Edge.Awayteam;
+        Standing[winner].goalsScored += Edge.awayGoals;
         Standing[loser].goalsScored += Edge.homeGoals;
         Standing[winner].goalsEncoded += Edge.homeGoals;
         Standing[loser].goalsEncoded += Edge.awayGoals;
@@ -133,7 +135,7 @@ void PrintStanding()
 {
     cout << "Premier League Standings Untill ";
     if (Date)
-        cout << Date;
+        cout << MeaningDate;
     else
         cout << "Round " << RoundNumber << '\n';
     cout << "-----------------------\n";
@@ -266,8 +268,8 @@ int main()
         else if (Condition == 2)
         {
             cout << "Date# ";
-            string date;    cin >> date;
-            Date = Converter(date);
+            cin >> MeaningDate;
+            Date = Converter(MeaningDate);
         }
         else
             return 0;
