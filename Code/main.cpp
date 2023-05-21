@@ -12,7 +12,7 @@ unordered_map<string, int> NodesName;
 int Visited[N];
 int RoundNumber, Date, Condition;
 vector<TeamStats> Standing(N);
-vector<MatchDataForGraph> Graph[N];
+vector<MatchData> Graph[N];
 void init(){
     Date = 0;
     RoundNumber = 0;
@@ -57,10 +57,10 @@ void Sorting(){                                                 // O(V * log(V))
 }
 void MakeGraph(){                                               //  O(E)
     for (MatchData i : matches){                                //  O(E)
-        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result});
+        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result, "", "", ""});
     }
 }
-void Stand(int winner, int loser, MatchDataForGraph Edge, char Result){             // O(1)
+void Stand(int winner, int loser, MatchData Edge, char Result){             // O(1)
     if (Result == 'H' || Result == 'A'){
         Standing[winner].points += 3;
         Standing[winner].W++;
@@ -121,7 +121,7 @@ void BFS(int x, int condition){                                 // O(E + V)
         {
             int P = q.front();                                  // O(1)
             q.pop();                                            // O(1)
-            for (MatchDataForGraph i : Graph[P])                // O(E)
+            for (MatchData i : Graph[P])                // O(E)
             {
                 if (i.roundNumber <= RoundNumber)
                 {
@@ -145,9 +145,9 @@ void BFS(int x, int condition){                                 // O(E + V)
         {
             int P = q.front();
             q.pop();
-            for (MatchDataForGraph i : Graph[P])
+            for (MatchData i : Graph[P])
             {
-                if (i.date <= Date)
+                if (i.Date <= Date)
                 {
                     if (i.result == 'H')
                         Stand(P, i.Awayteam, i, 'H');
