@@ -3,26 +3,30 @@
 const int N = 50;
 #define ll long long
 using namespace std;
-string InDate;    
+
+string InDate;
+int Visited[N], Rank;
+int Roundnumber, Date, Condition;
 vector<MatchData> matches;
 unordered_map<int, string> Nodes;
 unordered_map<string, int> NodesName;
-int Visited[N], Rank;
-int Roundnumber, Date, Condition;
 vector<TeamStats> Standing(N);
 vector<MatchData> Graph[N];
-void init(){                                // O(V)
+
+void init()                          // O(V)
+{                               
     Date = 0;
     Roundnumber = 0;
-    for (int i = 0; i < N; i++){
+    for (int i = 0; i < N; i++)
+    {
         Standing[i].D = 0;
-        Standing[i].goalsEncoded = 0;
-        Standing[i].goalsScored = 0;
         Standing[i].L = 0;
-        Standing[i].MatchPlayed = 0;
+        Standing[i].W = 0;
         Standing[i].points = 0;
         Standing[i].teamNode = i;
-        Standing[i].W = 0;
+        Standing[i].goalsScored = 0;
+        Standing[i].MatchPlayed = 0;
+        Standing[i].goalsEncoded = 0;
     }
     memset(Visited, 0, sizeof(Visited));
     Rank = 1;
@@ -64,16 +68,32 @@ void Sorting(){                                                 // O(V * log(V))
 
 void MakeGraph(){                                               //  O(E)
     for (MatchData i : matches){                                //  O(E)
-        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result, "", "", ""});
+        Graph[NodesName[i.homeTeam]].push_back(
+            {
+                NodesName[i.awayTeam],
+                Converter(i.date),
+                i.roundNumber,
+                i.homeGoals,
+                i.awayGoals,
+                i.result,
+                "",
+                "",
+                ""
+            }
+        );
     }
 }
-void Stand(int winner, int loser, MatchData Edge, char Result){             // O(1)
-    if (Result == 'H' || Result == 'A'){
+
+void Stand(int winner, int loser, MatchData Edge, char Result)          // O(1)
+{             
+    if (Result == 'H' || Result == 'A')
+    {
         Standing[winner].points += 3;
         Standing[winner].W++;
         Standing[loser].L++;
     }
-    else{
+    else
+    {
         Standing[winner].points += 1;
         Standing[loser].points += 1;
         Standing[winner].D++;
@@ -81,7 +101,8 @@ void Stand(int winner, int loser, MatchData Edge, char Result){             // O
     }
     Standing[winner].MatchPlayed++;
     Standing[loser].MatchPlayed++;
-    if (Result == 'H'){
+    if (Result == 'H')
+    {
         Standing[winner].goalsScored += Edge.homeGoals;
         Standing[loser].goalsScored += Edge.awayGoals;
         Standing[winner].goalsEncoded += Edge.awayGoals;
@@ -119,7 +140,9 @@ void PrintStanding(){                                                           
         cout << "|----|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
     }
 }
-void BFS(int x, int condition){                                 // O(E + V)
+
+void BFS(int x, int condition)           // O(E + V)
+{                                
     queue<int> q;
     Visited[x] = 1;
     q.push(x);
@@ -129,7 +152,7 @@ void BFS(int x, int condition){                                 // O(E + V)
         {
             int P = q.front();                                  // O(1)
             q.pop();                                            // O(1)
-            for (MatchData i : Graph[P])                // O(E)
+            for (MatchData i : Graph[P])                        // O(E)
             {
                 if (i.roundNumber <= Roundnumber)
                 {
@@ -177,11 +200,12 @@ void BFS(int x, int condition){                                 // O(E + V)
 void UpdateRounds(){
     int CurrentRound(1), CurrentNode(1);
     for (MatchData& i : matches){                   // O(E)     --> E represents Rankber of matches.
-        if (i.roundNumber < CurrentRound){          // O(1)     
+        if (i.roundNumber < CurrentRound)           // O(1) 
             i.roundNumber = CurrentRound;
-        }else if (i.roundNumber > CurrentRound)     // O(1)
+        else if (i.roundNumber > CurrentRound)     // O(1)
             CurrentRound = i.roundNumber;
-        if (NodesName[i.homeTeam] == 0){            // O(1)
+        if (NodesName[i.homeTeam] == 0)            // O(1)
+        {
             NodesName[i.homeTeam] = CurrentNode;
             Nodes[CurrentNode] = i.homeTeam;
             CurrentNode++;
@@ -193,7 +217,9 @@ void UpdateRounds(){
         }
     }
 }
-int main(){
+
+int main()
+{
     matches = FileReaderx();                    // O(E)
     UpdateRounds();                             // O(E)
     MakeGraph();                                // O(E) 
@@ -201,23 +227,30 @@ int main(){
     while (cin >> Condition){                   // O(E + V + V logV) --------> This graph is dense, so the complixity: O(V^2 + V * log(V)) = O(V^2)                  
         init();                                 // O(V)
         if (Condition == 1){                    // O(1)
-            cout << "Round# ";
-            cin >> Roundnumber;
+            do
+            {
+                cout << "Enter Correct Round# ";
+                cin >> Roundnumber;
+            } while (Roundnumber < 1 || Roundnumber > 38);
         }
         else if (Condition == 2){               // O(1)
-            cout << "Date# ";
-            cin >> InDate;
+            do
+            {
+                cout << "Enter Correct Date : ";
+                cin >> InDate;
+            } while (InDate > "18/05/2023" || InDate < "05/08/2022");
             Date = Converter(InDate);      // O(1)  
         }
         else
             return 0;
-         for (int i = 1; i <= N; i++)                        // O(E + V)
-         {
-             if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
-         }
+        for (int i = 1; i <= N; i++)       // O(E + V)
+        {
+            if (!Visited[i])
+            BFS(i, Condition);          // O(E + V)      
+        }
         Sorting();                              // O(V * log(V)) 
         PrintStanding();                        // O(V)
-        cout << "Running.....\nRound(1) or Date(2)? ";              // O(1)
+        cout << "Running.....\nRound(1) or Date(2) ? ";          // O(1)
     }
     return 0;
 }
