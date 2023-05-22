@@ -7,13 +7,13 @@ string InDate;
 vector<MatchData> matches;
 unordered_map<int, string> Nodes;
 unordered_map<string, int> NodesName;
-int Visited[N], num;
-int RoundNumber, Date, Condition;
+int Visited[N], Rank;
+int Roundnumber, Date, Condition;
 vector<TeamStats> Standing(N);
 vector<MatchData> Graph[N];
 void init(){                                // O(V)
     Date = 0;
-    RoundNumber = 0;
+    Roundnumber = 0;
     for (int i = 0; i < N; i++){
         Standing[i].D = 0;
         Standing[i].goalsEncoded = 0;
@@ -25,7 +25,7 @@ void init(){                                // O(V)
         Standing[i].W = 0;
     }
     memset(Visited, 0, sizeof(Visited));
-    num=1;
+    Rank = 1;
 }
 
 
@@ -99,14 +99,14 @@ void PrintStanding(){                                                           
     if (Date)
         cout << InDate << '\n';
     else
-        cout << "Round " << RoundNumber << '\n';
-    cout << "|**|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
-    cout << "|# |Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
-    cout << "|**|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
+        cout << "Round " << Roundnumber << '\n';
+    cout << "|****|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
+    cout << "|Rank|Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
+    cout << "|****|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
     for (TeamStats team : Standing){                                                                            // O(V)
         if (Nodes[team.teamNode].empty())
             continue;
-        cout << '|' << left << setw(2) << num++ << "|";
+        cout << '|' << left << setw(4) << Rank++ << "|";
         cout << left << setw(26) << Nodes[team.teamNode] << "|";
         cout << right << setw(11) << team.MatchPlayed << "|";
         cout << right << setw(5) << team.W << "|";
@@ -116,7 +116,7 @@ void PrintStanding(){                                                           
         cout << right << setw(5) << team.goalsEncoded << "|";
         cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
         cout << right << setw(5) << team.points << "|\n";
-        cout << "|--|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
+        cout << "|----|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
     }
 }
 void BFS(int x, int condition){                                 // O(E + V)
@@ -131,7 +131,7 @@ void BFS(int x, int condition){                                 // O(E + V)
             q.pop();                                            // O(1)
             for (MatchData i : Graph[P])                // O(E)
             {
-                if (i.roundNumber <= RoundNumber)
+                if (i.roundNumber <= Roundnumber)
                 {
                     if (i.result == 'H')
                         Stand(P, i.Awayteam, i, 'H');
@@ -176,7 +176,7 @@ void BFS(int x, int condition){                                 // O(E + V)
 
 void UpdateRounds(){
     int CurrentRound(1), CurrentNode(1);
-    for (MatchData& i : matches){                   // O(E)     --> E represents number of matches.
+    for (MatchData& i : matches){                   // O(E)     --> E represents Rankber of matches.
         if (i.roundNumber < CurrentRound){          // O(1)     
             i.roundNumber = CurrentRound;
         }else if (i.roundNumber > CurrentRound)     // O(1)
@@ -202,7 +202,7 @@ int main(){
         init();                                 // O(V)
         if (Condition == 1){                    // O(1)
             cout << "Round# ";
-            cin >> RoundNumber;
+            cin >> Roundnumber;
         }
         else if (Condition == 2){               // O(1)
             cout << "Date# ";
