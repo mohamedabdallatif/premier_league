@@ -4,13 +4,15 @@ using namespace std;
 
 struct MatchData
 {
+    int Awayteam;
+    int Date;
     int roundNumber;
-    string date;
-    string homeTeam;
-    string awayTeam;
     int homeGoals;
     int awayGoals;
     char result;
+    string date;
+    string homeTeam;
+    string awayTeam;
 };
 
 struct TeamStats
@@ -25,15 +27,6 @@ struct TeamStats
     int L;
 };
 
-struct MatchDataForGraph
-{
-    int Awayteam;
-    int date;
-    int roundNumber;
-    int homeGoals;
-    int awayGoals;
-    char result;
-};
 
 vector<MatchData> FileReaderx();
 
