@@ -117,16 +117,14 @@ void Stand(int winner, int loser, MatchData Edge, char Result)          // O(1)
 void PrintStanding()
 {                                                                                           // O(V)
     cout << "Premier League Standings Untill ";
-    if (Date)
-        cout << InDate << '\n';
-    else
-        cout << "Round " << Roundnumber << '\n';
+    if (Date) cout << InDate << '\n';
+    else cout << "Round " << Roundnumber << '\n';
     cout << "|****|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
     cout << "|Rank|Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
     cout << "|****|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
-    for (TeamStats team : Standing){                                                                            // O(V)
-        if (Nodes[team.teamNode].empty())
-            continue;
+    for (TeamStats team : Standing)               // O(V)
+    {                                                                          
+        if (Nodes[team.teamNode].empty()) continue;
         cout << '|' << left << setw(4) << Rank++ << "|";
         cout << left << setw(26) << Nodes[team.teamNode] << "|";
         cout << right << setw(11) << team.MatchPlayed << "|";
