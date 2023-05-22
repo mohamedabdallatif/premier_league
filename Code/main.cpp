@@ -32,7 +32,6 @@ void init()                          // O(V)
     Rank = 1;
 }
 
-
 bool sortBy(TeamStats &a, TeamStats &b){                                                                    // O(V * log(V))
     int diffGoalsA = (a.goalsScored - a.goalsEncoded), diffGoalsB = (b.goalsScored - b.goalsEncoded);       // O(1)
     if (a.points != b.points)                                                                               // O(1)
@@ -46,9 +45,10 @@ bool sortBy(TeamStats &a, TeamStats &b){                                        
     return (Nodes[a.teamNode] < Nodes[b.teamNode]);
 }
 
-
-int Converter(string date){                                     // O(1)
-    stringstream ss(date);                                      // used to extract substrings from a string stream (ss) using a delimiter ('/').
+// parse date to year/month/day
+int Converter(string date)                  // O(1)
+{                                     
+    stringstream ss(date);                  // used to extract substrings from a string stream (ss) using a delimiter ('/').
     string SubStr;
     getline(ss, SubStr, '/'); 
     ll day = stoi(SubStr);
@@ -60,11 +60,9 @@ int Converter(string date){                                     // O(1)
     return dateIntFormat;
 }
 
-
 void Sorting(){                                                 // O(V * log(V))
     sort(Standing.begin(), Standing.end(), sortBy);
 }
-
 
 void MakeGraph(){                                               //  O(E)
     for (MatchData i : matches){                                //  O(E)
@@ -115,7 +113,9 @@ void Stand(int winner, int loser, MatchData Edge, char Result)          // O(1)
         Standing[loser].goalsEncoded += Edge.awayGoals;
     }
 }
-void PrintStanding(){                                                                                           // O(V)
+
+void PrintStanding()
+{                                                                                           // O(V)
     cout << "Premier League Standings Untill ";
     if (Date)
         cout << InDate << '\n';

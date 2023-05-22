@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 #include "../Headers/FileReader.h"
-
 using namespace std;
 
 vector<MatchData> FileReaderx() 
