@@ -57,7 +57,8 @@ void Sorting(){
 }
 void MakeGraph(){
     for (MatchData i : matches){
-        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result});
+        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam],
+         Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result});
     }
 }
 void Stand(int winner, int loser, MatchDataForGraph Edge, char Result){
@@ -204,10 +205,10 @@ int main(){
         }
         else
             return 0;
-        for (int i = 1; i <= 38; i++){
+       for (int i = 1; i <= 38; i++){
             if (!Visited[i])
-                BFS(i, Condition);
-        }
+                BFS(1, Condition);
+       }
         Sorting();
         PrintStanding();
         cout << "Running.....\nRound(1) or Date(2)? ";
