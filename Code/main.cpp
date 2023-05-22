@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
-#include <iomanip> // for setw()
-
+// #include <iomanip> // for setw()
 #include "../Headers/FileReader.h"
-const int N = 50;
+
+const int N = 38;
 #define ll long long
 using namespace std;
-string MeaningDate;    
+string InDate;    
 vector<MatchData> matches;
 unordered_map<int, string> Nodes;
 unordered_map<string, int> NodesName;
@@ -13,7 +13,7 @@ int Visited[N];
 int RoundNumber, Date, Condition;
 vector<TeamStats> Standing(N);
 vector<MatchData> Graph[N];
-void init(){
+void init(){                                // O(V)
     Date = 0;
     RoundNumber = 0;
     for (int i = 0; i < N; i++){
@@ -28,6 +28,8 @@ void init(){
     }
     memset(Visited, 0, sizeof(Visited));
 }
+
+
 bool sortBy(TeamStats &a, TeamStats &b){                                                                    // O(V * log(V))
     int diffGoalsA = (a.goalsScored - a.goalsEncoded), diffGoalsB = (b.goalsScored - b.goalsEncoded);       // O(1)
     if (a.points != b.points)                                                                               // O(1)
@@ -40,8 +42,10 @@ bool sortBy(TeamStats &a, TeamStats &b){                                        
         return (a.goalsEncoded < b.goalsEncoded);
     return (Nodes[a.teamNode] < Nodes[b.teamNode]);
 }
+
+
 int Converter(string date){                                     // O(1)
-    stringstream ss(date);
+    stringstream ss(date);                                      // used to extract substrings from a string stream (ss) using a delimiter ('/').
     string SubStr;
     getline(ss, SubStr, '/'); 
     ll day = stoi(SubStr);
@@ -52,9 +56,13 @@ int Converter(string date){                                     // O(1)
     ll dateIntFormat = (year * 10000) + (month * 100) + day;
     return dateIntFormat;
 }
+
+
 void Sorting(){                                                 // O(V * log(V))
     sort(Standing.begin(), Standing.end(), sortBy);
 }
+
+
 void MakeGraph(){                                               //  O(E)
     for (MatchData i : matches){                                //  O(E)
         Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result, "", "", ""});
@@ -90,7 +98,7 @@ void Stand(int winner, int loser, MatchData Edge, char Result){             // O
 void PrintStanding(){                                                                                           // O(V)
     cout << "Premier League Standings Untill ";
     if (Date)
-        cout << MeaningDate << '\n';
+        cout << InDate << '\n';
     else
         cout << "Round " << RoundNumber << '\n';
     cout << "|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
@@ -191,15 +199,15 @@ int main(){
     MakeGraph();                                // O(E) 
     cout << "Round(1) or Date(2)? ";            // O(1)
     while (cin >> Condition){                   // O(E + V + V logV) --------> This graph is dense, so the complixity: O(V^2 + V * log(V)) = O(V^2)                  
-        init();
+        init();                                 // O(V)
         if (Condition == 1){                    // O(1)
             cout << "Round# ";
             cin >> RoundNumber;
         }
         else if (Condition == 2){               // O(1)
             cout << "Date# ";
-            cin >> MeaningDate;
-            Date = Converter(MeaningDate);      // O(1)  
+            cin >> InDate;
+            Date = Converter(InDate);      // O(1)  
         }
         else
             return 0;

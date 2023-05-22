@@ -2,7 +2,7 @@
 #define FILEREADER
 using namespace std;
 
-struct MatchData
+struct MatchData            // Used for Graph, Matches
 {
     int Awayteam;
     int Date;
@@ -15,7 +15,7 @@ struct MatchData
     string awayTeam;
 };
 
-struct TeamStats
+struct TeamStats            // Used for Standing
 {
     int points;
     int goalsScored;
@@ -26,7 +26,6 @@ struct TeamStats
     int D;
     int L;
 };
-
 
 vector<MatchData> FileReaderx();
 

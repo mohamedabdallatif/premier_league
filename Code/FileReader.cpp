@@ -6,12 +6,12 @@ using namespace std;
 vector<MatchData> FileReaderx()
 {
     vector<MatchData> matchs;
-    ifstream file("epl_results.csv");
+    ifstream file("epl_results.csv");                   // used to create an input file stream object "file" and associate it with the file "epl_results.csv" for reading data from the file.
     string line;
     getline(file, line);
     while (getline(file, line))
     {
-        stringstream ss(line);
+        stringstream ss(line);                          // used to create a string stream object "ss" and initialize it with the string "line".
         string field;
         vector<string> fields;
         while (getline(ss, field, ','))
