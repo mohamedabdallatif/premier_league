@@ -2,6 +2,7 @@
 #include <iomanip> // for setw()
 
 #include "../Headers/FileReader.h"
+int num=1;
 const int N = 50;
 #define ll long long
 using namespace std;
@@ -27,6 +28,7 @@ void init(){
         Standing[i].W = 0;
     }
     memset(Visited, 0, sizeof(Visited));
+    num=1;
 }
 bool sortBy(TeamStats &a, TeamStats &b){                                                                    // O(V * log(V))
     int diffGoalsA = (a.goalsScored - a.goalsEncoded), diffGoalsB = (b.goalsScored - b.goalsEncoded);       // O(1)
@@ -93,13 +95,14 @@ void PrintStanding(){                                                           
         cout << MeaningDate << '\n';
     else
         cout << "Round " << RoundNumber << '\n';
-    cout << "|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
-    cout << "|Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
-    cout << "|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
+    cout << "|**|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
+    cout << "|# |Team                      |MatchPlayed|  W  |  D  |  L  | GF  | GA  | GD  | Pts |\n";
+    cout << "|**|**************************|***********|*****|*****|*****|*****|*****|*****|*****|\n";
     for (TeamStats team : Standing){                                                                            // O(V)
         if (Nodes[team.teamNode].empty())
             continue;
-        cout << '|' << left << setw(26) << Nodes[team.teamNode] << "|";
+        cout << '|' << left << setw(2) << num++ << "|";
+        cout << left << setw(26) << Nodes[team.teamNode] << "|";
         cout << right << setw(11) << team.MatchPlayed << "|";
         cout << right << setw(5) << team.W << "|";
         cout << right << setw(5) << team.D << "|";
@@ -108,7 +111,7 @@ void PrintStanding(){                                                           
         cout << right << setw(5) << team.goalsEncoded << "|";
         cout << right << setw(5) << team.goalsScored - team.goalsEncoded << "|";
         cout << right << setw(5) << team.points << "|\n";
-        cout << "|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
+        cout << "|--|--------------------------|-----------|-----|-----|-----|-----|-----|-----|-----|\n";
     }
 }
 void BFS(int x, int condition){                                 // O(E + V)
@@ -207,7 +210,6 @@ int main(){
          {
              if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
          }
-      //  BFS(1, Condition);                      // O(E + V)             ---> epl ended..
         Sorting();                              // O(V * log(V)) 
         PrintStanding();                        // O(V)
         cout << "Running.....\nRound(1) or Date(2)? ";              // O(1)
