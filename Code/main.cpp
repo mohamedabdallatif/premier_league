@@ -211,12 +211,12 @@ int main(){
         }
         else
             return 0;
-        // for (int i = 1; i <= N; i++)                        // O(E + V)
-        // {
-        //     if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
-        // }
-        BFS(1, Condition);                      // O(E + V)             ---> epl ended..
-        Sorting();                              // O(V * log(V)) -----> uses an efficient sorting algorithm called introsort, which is a hybrid algorithm that combines quicksort, heapsort, and insertion sort. 
+         for (int i = 1; i <= N; i++)                        // O(E + V)
+         {
+             if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
+         }
+      //  BFS(1, Condition);                      // O(E + V)             ---> epl ended..
+        Sorting();                              // O(V * log(V)) 
         PrintStanding();                        // O(V)
         cout << "Running.....\nRound(1) or Date(2)? ";              // O(1)
     }

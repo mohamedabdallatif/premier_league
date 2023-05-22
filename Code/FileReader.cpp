@@ -3,7 +3,7 @@
 
 using namespace std;
 
-vector<MatchData> FileReaderx()
+vector<MatchData> FileReaderx() 
 {
     vector<MatchData> matchs;
     ifstream file("epl_results.csv");                   // used to create an input file stream object "file" and associate it with the file "epl_results.csv" for reading data from the file.
