@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-// #include <iomanip> // for setw()
 #include "../Headers/FileReader.h"
 const int N = 50;
 #define ll long long
@@ -8,7 +7,7 @@ string InDate;
 vector<MatchData> matches;
 unordered_map<int, string> Nodes;
 unordered_map<string, int> NodesName;
-int Visited[N];
+int Visited[N], num;
 int RoundNumber, Date, Condition;
 vector<TeamStats> Standing(N);
 vector<MatchData> Graph[N];
