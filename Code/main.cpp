@@ -55,16 +55,9 @@ int Converter(string date){                                     // O(1)
 void Sorting(){                                                 // O(V * log(V))
     sort(Standing.begin(), Standing.end(), sortBy);
 }
-<<<<<<< HEAD
-void MakeGraph(){
-    for (MatchData i : matches){
-        Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam],
-         Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result});
-=======
 void MakeGraph(){                                               //  O(E)
     for (MatchData i : matches){                                //  O(E)
         Graph[NodesName[i.homeTeam]].push_back({NodesName[i.awayTeam], Converter(i.date), i.roundNumber, i.homeGoals, i.awayGoals, i.result, "", "", ""});
->>>>>>> b9da72d33bfe807e8f4cfc93c34a6533fe9192ae
     }
 }
 void Stand(int winner, int loser, MatchData Edge, char Result){             // O(1)
@@ -210,24 +203,14 @@ int main(){
         }
         else
             return 0;
-<<<<<<< HEAD
-       for (int i = 1; i <= 38; i++){
-            if (!Visited[i])
-                BFS(1, Condition);
-       }
-        Sorting();
-        PrintStanding();
-        cout << "Running.....\nRound(1) or Date(2)? ";
-=======
-        // for (int i = 1; i <= N; i++)                        // O(E + V)
-        // {
-        //     if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
-        // }
-        BFS(1, Condition);                      // O(E + V)             ---> epl ended..
-        Sorting();                              // O(V * log(V)) -----> uses an efficient sorting algorithm called introsort, which is a hybrid algorithm that combines quicksort, heapsort, and insertion sort. 
+         for (int i = 1; i <= N; i++)                        // O(E + V)
+         {
+             if(!Visited[i])     BFS(i, Condition);          // O(E + V)      
+         }
+      //  BFS(1, Condition);                      // O(E + V)             ---> epl ended..
+        Sorting();                              // O(V * log(V)) 
         PrintStanding();                        // O(V)
         cout << "Running.....\nRound(1) or Date(2)? ";              // O(1)
->>>>>>> b9da72d33bfe807e8f4cfc93c34a6533fe9192ae
     }
     return 0;
 }
