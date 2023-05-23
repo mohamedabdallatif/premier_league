@@ -12,8 +12,7 @@ vector<MatchData> FileReaderx()
     getline(file, line); // taking first line from table which represent columns headlines - ignore it
     while (getline(file, line))
     {
-        // used to create a string stream object "ss" and initialize 
-        // it with the string "line".
+        // used to create a string stream object "ss" and initialize it by string "line".
         stringstream ss(line);
         string field;
         vector<string> fields;
@@ -32,7 +31,7 @@ vector<MatchData> FileReaderx()
         match.homeGoals = stoi(fields[4]);
         match.awayGoals = stoi(fields[5]);
         match.result = fields[6][0];
-        // insert it beside other matches
+        // insert it inside matches vector
         matchs.push_back(match);
     }
     return matchs;

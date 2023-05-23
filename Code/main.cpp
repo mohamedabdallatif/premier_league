@@ -236,15 +236,15 @@ int main()
             {
                 cout << "Enter Correct Date : ";
                 cin >> InDate;
-            } while (InDate > "18/05/2023" || InDate < "05/08/2022");
-            Date = Converter(InDate);      // O(1)  
+                Date = Converter(InDate);      // O(1)  
+            } while (Date > Converter("18/05/2023") || Date < Converter("05/08/2022"));
         }
         else
             return 0;
         for (int i = 1; i <= N; i++)       // O(E + V)
         {
             if (!Visited[i])
-            BFS(i, Condition);          // O(E + V)      
+                BFS(i, Condition);          // O(E + V)      
         }
         Sorting();                              // O(V * log(V)) 
         PrintStanding();                        // O(V)
